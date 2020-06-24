@@ -9,10 +9,6 @@ from torchvision.datasets import ImageFolder
 from torchvision import transforms
 
 
-def is_power_of_2(num):
-    return ((num & (num - 1)) == 0) and num != 0
-
-
 class CustomImageFolder(ImageFolder):
     def __init__(self, root, transform=None):
         super(CustomImageFolder, self).__init__(root, transform)
@@ -39,11 +35,10 @@ class CustomTensorDataset(Dataset):
 
 def return_data(args):
     name = args.dataset
-    dset_dir = args.dset_dir
+    dset_dir = './data'
     batch_size = args.batch_size
     num_workers = args.num_workers
-    image_size = args.image_size
-    assert image_size == 64, 'currently only image size of 64 is supported'
+    image_size = 64
 
     if name.lower() == '3dchairs':
         root = os.path.join(dset_dir, '3DChairs')
@@ -94,7 +89,7 @@ if __name__ == '__main__':
         transforms.Resize((64, 64)),
         transforms.ToTensor(),])
 
-    dset = CustomImageFolder('data/CelebA', transform)
+    dset = CustomImageFolder('celeba', transform)
     loader = DataLoader(dset,
                        batch_size=32,
                        shuffle=True,
@@ -102,5 +97,12 @@ if __name__ == '__main__':
                        pin_memory=False,
                        drop_last=True)
 
+    import time
+    start = time.time()
+    for i, x in enumerate(loader):
+        if i == 50:
+            break
+        print(x.size())
+    print(time.time() -start)
     images1 = iter(loader).next()
     import ipdb; ipdb.set_trace()
