@@ -3,7 +3,7 @@
 import warnings
 from tensorboardX import SummaryWriter
 
-from data.data_prepare import get_data
+from dataset import get_data
 
 warnings.filterwarnings("ignore")
 
@@ -17,8 +17,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 from torchvision.utils import make_grid, save_image
 
-from utils import cuda, grid2gif
-from data.dataset import return_data
+from utils import grid2gif
 
 device = torch.device("cuda:0" if (torch.cuda.is_available()) else "cpu")
 
@@ -132,7 +131,7 @@ class Solver(object):
         else:
             raise NotImplementedError('Get model %s'%params.dataset)
 
-        return net(params.z_dim, params.nb_channel).to(device)
+        return net(params.z_dim, params.nb_channels).to(device)
 
 
     def train(self):
@@ -189,7 +188,7 @@ class Solver(object):
                     pbar.write('Saved checkpoint(iter:{})'.format(current_iter))
 
                 if current_iter%50000 == 0:
-                    self.save_checkpoint(self.params, str(current_iter))
+                    self.save_checkpoint(self.params, '%08d'%current_iter)
 
                 pbar.update()
 
@@ -300,7 +299,7 @@ class Solver(object):
         if self.save_output:
             output_dir = self.params['info']
             gifs = torch.cat(gifs)
-            gifs = gifs.view(len(Z), self.params.z_dim, len(interpolation), self.nc, 64, 64).transpose(1, 2)
+            gifs = gifs.view(len(Z), self.params.z_dim, len(interpolation), self.params.nb_channels, self.params.image_size, self.params.image_size).transpose(1, 2)
             for i, key in enumerate(Z.keys()):
                 for j, val in enumerate(interpolation):
                     save_image(tensor=gifs[i][j].cpu(),

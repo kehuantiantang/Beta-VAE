@@ -1,3 +1,5 @@
 z_dim: 32
 nb_channels: 3
 distribution: gaussian
+beta: 1
+image_size: 64

@@ -6,8 +6,8 @@ from torchvision import transforms
 import os.path as osp
 import torchvision.datasets as dsets
 
-# root = 'data/'
-root = ''
+root = 'data/'
+# root = ''
 
 def create_softlink():
     # TODO create datset softlink from infogan to beta_vae
@@ -85,7 +85,7 @@ def get_data(dataset, batch_size):
     # Create dataloader.
     dataloader = torch.utils.data.DataLoader(dataset,
                                              batch_size=batch_size,
-                                             shuffle=True, num_workers=3, pin_memory = True)
+                                             shuffle=True, num_workers=2, pin_memory = True)
 
     return dataloader
 
