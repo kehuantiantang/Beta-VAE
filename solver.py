@@ -280,7 +280,7 @@ class Solver(object):
 
         gifs = []
 
-        for key in Z.keys():
+        for key in list(Z.keys())[:10]:
             z_ori = Z[key]
             samples = []
             for row in range(self.params.z_dim):
@@ -292,11 +292,11 @@ class Solver(object):
                     sample = F.sigmoid(decoder(z)).data
                     samples.append(sample)
                     gifs.append(sample)
-            samples = torch.cat(samples, dim=0).cpu()
+            samples = torch.cat(samples[:100], dim=0).cpu()
 
             if self.viz_on:
-                images = make_grid(samples[:100], nrow=10, padding=2, normalize=True)
-                self.writer.add_image('Traverse', images, current_iter)
+                images = make_grid(samples, nrow=10, padding=2, normalize=True)
+                self.writer.add_image('Traverse/%s'%key, images, current_iter)
 
 
         if self.save_output:
@@ -311,14 +311,14 @@ class Solver(object):
 
 
                     index = slice(len(interpolation) * i + j, len(interpolation) * i + j + self.params.z_dim)
-                    img = torch.cat(gifs[index][:100]).cpu()
+                    # img = torch.cat(gifs[index][:100]).cpu()
                     # save_image(tensor=img,
                     #            fp=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
                     #            nrow=self.params.z_dim, pad_value=1)
 
 
-                grid2gif(os.path.join(output_dir, key+'*.jpg'),
-                         os.path.join(output_dir, key+'.gif'), delay=10)
+                # grid2gif(os.path.join(output_dir, key+'*.jpg'),
+                #          os.path.join(output_dir, key+'.gif'), delay=10)
 
         self.net_mode(train=True)
 
