@@ -152,8 +152,12 @@ class BetaVAE(VAEBase):
             nn.ReLU(True),
             nn.ConvTranspose2d(32, 32, 4, 2, 1), # B,  32, 32, 32
             nn.ReLU(True),
-            nn.ConvTranspose2d(32, nb_channel, 4, 2, 1),  # B, nc, 64, 64
-            nn.Upsample(scale_factor=4, mode='bilinear',align_corners=True)
+            nn.ConvTranspose2d(32, 32, 4, 2, 1),  # B, nc, 64, 64
+            nn.ReLU(True),
+            nn.ConvTranspose2d(32, 16, 4, 2, 1),  # B, nc, 128, 128
+            nn.ReLU(True),
+            nn.ConvTranspose2d(16, nb_channel, 4, 2, 1),  # B, nc, 128, 128
+            # nn.Upsample(scale_factor=2, mode='bilinear',align_corners=True)
         )
 
         self.weight_init()

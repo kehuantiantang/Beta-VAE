@@ -23,7 +23,7 @@ parser = argparse.ArgumentParser(description='toy Beta-VAE')
 parser.add_argument('--train', default=True, help='train or traverse')
 parser.add_argument('--seed', default=1, type=int, help='random seed')
 
-parser.add_argument('--max_iter', default=1e5, type=int, help='maximum training iteration')
+parser.add_argument('--max_iter', default=1e6, type=int, help='maximum training iteration')
 
 parser.add_argument('--viz_on', default=True, help='enable visdom visualization')
 parser.add_argument('--save_output', default=True, help='save traverse images and gif')
@@ -47,7 +47,7 @@ parser.add_argument('--dataset', dest='dataset',
 parser.add_argument('--output_dir', dest='output_dir',
                     help='the dir save result',
                     default='output1', type=str)
-parser.add_argument('--comment', type=str, default='_alex_beta250')
+parser.add_argument('--comment', type=str, default='_alltranspose_alex_beta250')
 args = parser.parse_args()
 
 
