@@ -61,12 +61,8 @@ def get_data(dataset, batch_size):
         dataset = dsets.ImageFolder(root=celeba_path, transform=transform)
 
     elif dataset == 'casia_webface' or dataset.lower() == 'casia':
-        transform = transforms.Compose([
-            transforms.Resize(68),
-            transforms.CenterCrop(65),
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5),
-                                 (0.5, 0.5, 0.5))])
+        transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor(),
+                                        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
         casia_path = osp.join(root, 'casia_webface')
         dataset = dsets.ImageFolder(root=casia_path, transform=transform)
@@ -85,7 +81,7 @@ def get_data(dataset, batch_size):
     # Create dataloader.
     dataloader = torch.utils.data.DataLoader(dataset,
                                              batch_size=batch_size,
-                                             shuffle=True, num_workers=2, pin_memory = True)
+                                             shuffle=True, num_workers=3, pin_memory = True)
 
     return dataloader
 

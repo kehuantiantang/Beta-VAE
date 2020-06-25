@@ -35,10 +35,7 @@ class View(nn.Module):
         return tensor.view(self.size)
 
 
-def reparametrize(mu, logvar):
-    std = logvar.div(2).exp()
-    eps = Variable(std.data.new(std.size()).normal_())
-    return mu + std*eps
+
 
 
 class VAEBase(nn.Module):
@@ -54,13 +51,23 @@ class VAEBase(nn.Module):
                 kaiming_init(m)
 
     def forward(self, x):
+        # 2x20
         distributions = self._encode(x)
         mu = distributions[:, :self.z_dim]
         logvar = distributions[:, self.z_dim:]
-        z = reparametrize(mu, logvar)
+        z = self.reparametrize(mu, logvar)
+        # 2x10, z_dim
         x_recon = self._decode(z)
 
         return x_recon, mu, logvar
+
+    def reparametrize(self, mu, logvar):
+        if self.training:
+            std = logvar.div(2).exp()
+            eps = Variable(std.data.new(std.size()).normal_())
+            return mu + std*eps
+        else:
+            return mu
 
     def _encode(self, x):
         return self.encoder(x)

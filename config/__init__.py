@@ -17,7 +17,7 @@ def get_params(dataset):
         f = './config/faces.yaml'
         # params = yaml.load('./config/faces.yaml')
     elif dataset == 'casia_webface' or dataset.lower() == 'casia':
-        f = './config/casia_webface.yaml'
+        f = './config/casia.yaml'
         # params = yaml.load('./config/casia_webface.yaml')
     else:
         raise ValueError('%s is not exist'%dataset)

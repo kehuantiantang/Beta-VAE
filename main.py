@@ -30,8 +30,8 @@ parser.add_argument('--C_stop_iter', default=1e5, type=float, help='when to stop
 parser.add_argument('--viz_on', default=True, help='enable visdom visualization')
 parser.add_argument('--save_output', default=True, help='save traverse images and gif')
 
-parser.add_argument('--gather_step', default=300, type=int, help='numer of iterations after which data is gathered for visdom')
-parser.add_argument('--display_step', default=300, type=int, help='number of iterations after which loss data is printed and visdom is updated')
+parser.add_argument('--gather_step', default=2000, type=int, help='numer of iterations after which data is gathered for visdom')
+parser.add_argument('--display_step', default=2000, type=int, help='number of iterations after which loss data is printed and visdom is updated')
 
 parser.add_argument('--save_step', default=1000, type=int, help='number of iterations after which a checkpoint is saved')
 
@@ -40,13 +40,13 @@ parser.add_argument('--checkpoint_file', dest='checkpoint_file',
 # data
 parser.add_argument('--dataset', dest='dataset',
                     help='Training dataset',
-                    default='celeba', type=str)
+                    default='casia', type=str)
 
 # checkpoint
 parser.add_argument('--output_dir', dest='output_dir',
                     help='the dir save result',
                     default='output', type=str)
-parser.add_argument('--comment', type=str, default='beta1')
+parser.add_argument('--comment', type=str, default='_beta10')
 args = parser.parse_args()
 
 

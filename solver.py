@@ -1,7 +1,7 @@
 """solver.py"""
 
 import warnings
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 
 from dataset import get_data
 
@@ -127,11 +127,12 @@ class Solver(object):
 
         if params.dataset == 'celeba':
             from model.celea_model import BetaVAE
-            net = BetaVAE
+        elif params.dataset == 'casia':
+            from model.casia_model import BetaVAE
         else:
             raise NotImplementedError('Get model %s'%params.dataset)
 
-        return net(params.z_dim, params.nb_channels).to(device)
+        return BetaVAE(params.z_dim, params.nb_channels).to(device)
 
 
     def train(self):
@@ -302,10 +303,14 @@ class Solver(object):
             gifs = gifs.view(len(Z), self.params.z_dim, len(interpolation), self.params.nb_channels, self.params.image_size, self.params.image_size).transpose(1, 2)
             for i, key in enumerate(Z.keys()):
                 for j, val in enumerate(interpolation):
+                    # save_image(tensor=gifs[i][j].cpu(),
+                    #            filename=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
+                    #            nrow=self.params.z_dim, pad_value=1)
                     save_image(tensor=gifs[i][j].cpu(),
-                               filename=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
+                               fp=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
                                nrow=self.params.z_dim, pad_value=1)
-
+                    
+                    
                 grid2gif(os.path.join(output_dir, key+'*.jpg'),
                          os.path.join(output_dir, key+'.gif'), delay=10)
 

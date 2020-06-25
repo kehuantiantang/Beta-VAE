@@ -5,6 +5,7 @@ import torch.nn as nn
 from model.vae_base import View, reparametrize, kaiming_init, VAEBase
 
 
+
 class BetaVAE(VAEBase):
     '''Model celeba according to paper'''
 
