@@ -23,13 +23,13 @@ class CustomTensorDataset(Dataset):
     def __len__(self):
         return self.data_tensor.size(0)
 
-def get_data(dataset, batch_size):
+def get_data(dataset, batch_size, image_size):
 
     # Get MNIST dataset.
     if dataset == 'MNIST':
         transform = transforms.Compose([
-            transforms.Resize(28),
-            transforms.CenterCrop(28),
+            transforms.Resize(image_size),
+            transforms.CenterCrop(image_size),
             transforms.ToTensor()])
 
         dataset = dsets.MNIST(root+'mnist/', train='train',
@@ -59,7 +59,7 @@ def get_data(dataset, batch_size):
     # MUST ALREADY BE DOWNLOADED IN THE APPROPRIATE DIRECTOR DEFINED BY ROOT PATH!
     elif dataset == 'CelebA' or dataset.lower() == 'celeba':
         transform = transforms.Compose([
-            transforms.Resize((64,64)),
+            transforms.Resize((image_size,image_size)),
             transforms.ToTensor()])
 
         celeba_path = osp.join(root, 'celeba')
@@ -71,15 +71,14 @@ def get_data(dataset, batch_size):
         dataset = dsets.ImageFolder(root=celeba_path, transform=transform)
 
     elif dataset == 'casia_webface' or dataset.lower() == 'casia':
-        transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor(),
-                                        transforms.Normalize(mean=[0.0, 0.0, 0.0], std=[1.0, 1.0, 1.0])])
+        transform = transforms.Compose([transforms.Resize((image_size, image_size)), transforms.ToTensor()])
 
         casia_path = osp.join(root, 'casia_webface')
         dataset = dsets.ImageFolder(root=casia_path, transform=transform)
 
     elif dataset == 'Faces' or dataset.lower() == 'faces':
-        face_path = osp.join(root, 'feret')
-        # face_path = osp.join(root, 'faces')
+        # face_path = osp.join(root, 'feret')
+        face_path = osp.join(root, 'faces')
         transform = transforms.Compose([
             transforms.Resize(64),
             transforms.ToTensor()])

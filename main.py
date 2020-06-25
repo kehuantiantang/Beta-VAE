@@ -35,19 +35,19 @@ parser.add_argument('--save_step', default=4000, type=int, help='number of itera
 
 
 parser.add_argument('--beta', dest='beta',
-                    default=20, type=float)
+                    default=250, type=float)
 parser.add_argument('--checkpoint_file', dest='checkpoint_file',
                     default=None, type=str)
 # data
 parser.add_argument('--dataset', dest='dataset',
                     help='Training dataset',
-                    default='faces', type=str)
+                    default='casia', type=str)
 
 # checkpoint
 parser.add_argument('--output_dir', dest='output_dir',
                     help='the dir save result',
-                    default='output', type=str)
-parser.add_argument('--comment', type=str, default='_feret_beta20')
+                    default='output1', type=str)
+parser.add_argument('--comment', type=str, default='_tarch_beta250')
 args = parser.parse_args()
 
 
