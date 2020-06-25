@@ -92,15 +92,76 @@ import torch.nn.functional as F
 #         x = F.interpolate(x, size=(224, 224), mode='bilinear')
 #         return x
 
-class BetaVAE(BetaVAE):
+class BetaVAE(VAEBase):
 
     def __init__(self, z_dim=10, nb_channel=3):
-        super(BetaVAE, self).__init__(z_dim=z_dim, nb_channel=nb_channel)
+
+        super(BetaVAE, self).__init__(z_dim, nb_channel)
+
+        # self.encoder = nn.Sequential(
+        #     nn.Conv2d(nb_channel, 32, 4, 2, 1),          # B,  32, 32, 32
+        #     nn.ReLU(True),
+        #     nn.Conv2d(32, 32, 4, 2, 1),          # B,  32, 16, 16
+        #     nn.ReLU(True),
+        #     nn.Conv2d(32, 64, 4, 2, 1),          # B,  64,  8,  8
+        #     nn.ReLU(True),
+        #     nn.Conv2d(64, 64, 4, 2, 1),          # B,  64,  4,  4
+        #     nn.ReLU(True),
+        #     nn.Conv2d(64, 256, 4, 1),            # B, 256,  1,  1
+        #     nn.ReLU(True),
+        #     View((-1, 256*1*1)),                 # B, 256
+        #     nn.Linear(256, z_dim*2),             # B, z_dim*2
+        # )
+
+
+        self.encoder = nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=96, kernel_size=11, stride=4),  # (b x 96 x 55 x 55)
+            nn.BatchNorm2d(96),
+            nn.ReLU(True),
+            nn.MaxPool2d(kernel_size=3, stride=2),  # (b x 96 x 27 x 27)
+            nn.Conv2d(96, 256, 5, padding=2),  # (b x 256 x 27 x 27)
+            nn.BatchNorm2d(256),
+            nn.ReLU(True),
+            nn.MaxPool2d(kernel_size=3, stride=2),  # (b x 256 x 13 x 13)
+            nn.Conv2d(256, 384, 3, padding=1),  # (b x 384 x 13 x 13)
+            nn.BatchNorm2d(384),
+            nn.ReLU(True),
+            nn.Conv2d(384, 384, 3, padding=1),  # (b x 384 x 13 x 13)
+            nn.BatchNorm2d(384),
+            nn.ReLU(True),
+            nn.Conv2d(384, 256, 3, padding=1),  # (b x 256 x 13 x 13)
+            nn.BatchNorm2d(256),
+            nn.ReLU(True),
+            nn.MaxPool2d(kernel_size=3, stride=2),  # (b x 256 x 6 x 6)
+            nn.Conv2d(256, 256, 6),  # (b x 256 x 1 x 1)
+            nn.ReLU(True),
+            View((-1, 256*1*1)),                 # B, 256
+            nn.Linear(256, z_dim*2),             # B, z_dim*2
+        )
+        
+        # encoder VS decoder
+        self.decoder = nn.Sequential(
+            nn.Linear(z_dim, 256),               # B, 256
+            View((-1, 256, 1, 1)),               # B, 256,  1,  1
+            nn.ReLU(True),
+            nn.ConvTranspose2d(256, 64, 4),      # B,  64,  4,  4
+            nn.ReLU(True),
+            nn.ConvTranspose2d(64, 64, 4, 2, 1), # B,  64,  8,  8
+            nn.ReLU(True),
+            nn.ConvTranspose2d(64, 32, 4, 2, 1), # B,  32, 16, 16
+            nn.ReLU(True),
+            nn.ConvTranspose2d(32, 32, 4, 2, 1), # B,  32, 32, 32
+            nn.ReLU(True),
+            nn.ConvTranspose2d(32, nb_channel, 4, 2, 1),  # B, nc, 64, 64
+            nn.Upsample(scale_factor=4, mode='bilinear',align_corners=True)
+        )
+
+        self.weight_init()
 
 
 if __name__ == '__main__':
     net = BetaVAE()
-    noise = torch.randn(2, 3, 224, 224)
+    noise = torch.randn(2, 3, 256, 256)
     # noise1 = torch.randn(2, 20)
     # print(net._encode(noise).size())
     # print(net._decode(noise1).size())

@@ -47,7 +47,7 @@ parser.add_argument('--dataset', dest='dataset',
 parser.add_argument('--output_dir', dest='output_dir',
                     help='the dir save result',
                     default='output1', type=str)
-parser.add_argument('--comment', type=str, default='_tarch_beta250')
+parser.add_argument('--comment', type=str, default='_alex_beta250')
 args = parser.parse_args()
 
 

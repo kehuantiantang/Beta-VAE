@@ -80,7 +80,7 @@ def get_data(dataset, batch_size, image_size):
         # face_path = osp.join(root, 'feret')
         face_path = osp.join(root, 'faces')
         transform = transforms.Compose([
-            transforms.Resize(64),
+            transforms.Resize(image_size),
             transforms.ToTensor()])
         dataset = dsets.ImageFolder(root=face_path, transform=transform)
     elif dataset == '2dshapes':
