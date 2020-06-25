@@ -23,9 +23,7 @@ parser = argparse.ArgumentParser(description='toy Beta-VAE')
 parser.add_argument('--train', default=True, help='train or traverse')
 parser.add_argument('--seed', default=1, type=int, help='random seed')
 
-parser.add_argument('--max_iter', default=1e6, type=int, help='maximum training iteration')
-parser.add_argument('--C_max', default=25, type=float, help='capacity parameter(C) of bottleneck channel')
-parser.add_argument('--C_stop_iter', default=1e5, type=float, help='when to stop increasing the capacity')
+parser.add_argument('--max_iter', default=1e5, type=int, help='maximum training iteration')
 
 parser.add_argument('--viz_on', default=True, help='enable visdom visualization')
 parser.add_argument('--save_output', default=True, help='save traverse images and gif')
@@ -37,19 +35,19 @@ parser.add_argument('--save_step', default=4000, type=int, help='number of itera
 
 
 parser.add_argument('--beta', dest='beta',
-                    default=1, type=float)
+                    default=20, type=float)
 parser.add_argument('--checkpoint_file', dest='checkpoint_file',
                     default=None, type=str)
 # data
 parser.add_argument('--dataset', dest='dataset',
                     help='Training dataset',
-                    default='2dshapes', type=str)
+                    default='faces', type=str)
 
 # checkpoint
 parser.add_argument('--output_dir', dest='output_dir',
                     help='the dir save result',
                     default='output', type=str)
-parser.add_argument('--comment', type=str, default='_beta1')
+parser.add_argument('--comment', type=str, default='_feret_beta20')
 args = parser.parse_args()
 
 

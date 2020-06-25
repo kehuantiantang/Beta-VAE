@@ -83,8 +83,6 @@ class Solver(object):
         self.max_iter = params.max_iter
         self.params = params
         self.beta = params.beta
-        self.C_max = params.C_max
-        self.C_stop_iter = params.C_stop_iter
 
         self.net = self.get_model(params)
         self.viz_on = params.viz_on
@@ -211,6 +209,9 @@ class Solver(object):
                     self.save_checkpoint(self.params, '%08d'%current_iter)
 
                 pbar.update()
+
+            if pbar.n >= int(self.max_iter):
+                break
 
         pbar.write("[Training Finished]")
         pbar.close()

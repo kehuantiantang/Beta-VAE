@@ -78,8 +78,8 @@ def get_data(dataset, batch_size):
         dataset = dsets.ImageFolder(root=casia_path, transform=transform)
 
     elif dataset == 'Faces' or dataset.lower() == 'faces':
-        # face_path = osp.join(root, 'feret')
-        face_path = osp.join(root, 'faces')
+        face_path = osp.join(root, 'feret')
+        # face_path = osp.join(root, 'faces')
         transform = transforms.Compose([
             transforms.Resize(64),
             transforms.ToTensor()])
