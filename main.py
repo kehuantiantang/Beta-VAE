@@ -33,8 +33,11 @@ parser.add_argument('--save_output', default=True, help='save traverse images an
 parser.add_argument('--gather_step', default=2000, type=int, help='numer of iterations after which data is gathered for visdom')
 parser.add_argument('--display_step', default=2000, type=int, help='number of iterations after which loss data is printed and visdom is updated')
 
-parser.add_argument('--save_step', default=1000, type=int, help='number of iterations after which a checkpoint is saved')
+parser.add_argument('--save_step', default=4000, type=int, help='number of iterations after which a checkpoint is saved')
 
+
+parser.add_argument('--beta', dest='beta',
+                    default=10, type=float)
 parser.add_argument('--checkpoint_file', dest='checkpoint_file',
                     default=None, type=str)
 # data
@@ -46,7 +49,7 @@ parser.add_argument('--dataset', dest='dataset',
 parser.add_argument('--output_dir', dest='output_dir',
                     help='the dir save result',
                     default='output', type=str)
-parser.add_argument('--comment', type=str, default='_beta10')
+parser.add_argument('--comment', type=str, default='_beta10res101_z256')
 args = parser.parse_args()
 
 

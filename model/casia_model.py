@@ -9,14 +9,14 @@ import torch.nn.functional as F
 
 
 class BetaVAE(VAEBase):
-    def __init__(self, z_dim=10, nb_channel=3, fc_hidden1=256):
+    def __init__(self, z_dim=10, nb_channel=3, fc_hidden1=768):
         super(BetaVAE, self).__init__(z_dim, nb_channel)
 
         self.fc_hidden1, self.fc_hidden2, self.CNN_embed_dim = fc_hidden1, z_dim*2, z_dim
 
 
         # encoding components
-        resnet = models.resnet18(pretrained=True)
+        resnet = models.resnet101(pretrained=True)
 
         modules = list(resnet.children())[:-1]      # delete the last fc layer.
         self.resnet = nn.Sequential(*modules)

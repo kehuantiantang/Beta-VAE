@@ -118,6 +118,8 @@ class Solver(object):
         os.makedirs(params['summary'], exist_ok=True)
         os.makedirs(params['checkpoint'], exist_ok=True)
         os.makedirs(params['info'], exist_ok=True)
+
+        print('Save summary to %s '%params['summary'])
     
     def set_optimizer(self, params):
         self.optim = optim.Adam(self.net.parameters(), lr=params.lr,
@@ -299,18 +301,22 @@ class Solver(object):
 
         if self.save_output:
             output_dir = self.params['info']
-            gifs = torch.cat(gifs)
-            gifs = gifs.view(len(Z), self.params.z_dim, len(interpolation), self.params.nb_channels, self.params.image_size, self.params.image_size).transpose(1, 2)
+            # gifs = torch.cat(gifs)
+            # gifs = gifs.view(len(Z), self.params.z_dim, len(interpolation), self.params.nb_channels, self.params.image_size, self.params.image_size).transpose(1, 2)
             for i, key in enumerate(Z.keys()):
                 for j, val in enumerate(interpolation):
                     # save_image(tensor=gifs[i][j].cpu(),
                     #            filename=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
                     #            nrow=self.params.z_dim, pad_value=1)
-                    save_image(tensor=gifs[i][j].cpu(),
-                               fp=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
-                               nrow=self.params.z_dim, pad_value=1)
-                    
-                    
+
+
+                    index = slice(len(interpolation) * i + j, len(interpolation) * i + j + self.params.z_dim)
+                    img = torch.cat(gifs[index][:100]).cpu()
+                    # save_image(tensor=img,
+                    #            fp=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
+                    #            nrow=self.params.z_dim, pad_value=1)
+
+
                 grid2gif(os.path.join(output_dir, key+'*.jpg'),
                          os.path.join(output_dir, key+'.gif'), delay=10)
 
