@@ -19,6 +19,8 @@ def get_params(dataset):
     elif dataset == 'casia_webface' or dataset.lower() == 'casia':
         f = './config/casia.yaml'
         # params = yaml.load('./config/casia_webface.yaml')
+    elif dataset == '2dshapes':
+        f = './config/twoD.yaml'
     else:
         raise ValueError('%s is not exist'%dataset)
 

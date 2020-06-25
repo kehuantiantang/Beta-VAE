@@ -2,17 +2,26 @@
 import subprocess
 
 import torch
+from torch.utils.data import Dataset
 from torchvision import transforms
 import os.path as osp
 import torchvision.datasets as dsets
+import numpy as np
+
 
 root = 'data/'
 # root = ''
 
-def create_softlink():
-    # TODO create datset softlink from infogan to beta_vae
-    pass
 
+class CustomTensorDataset(Dataset):
+    def __init__(self, data_tensor):
+        self.data_tensor = data_tensor
+
+    def __getitem__(self, index):
+        return self.data_tensor[index], 0
+
+    def __len__(self):
+        return self.data_tensor.size(0)
 
 def get_data(dataset, batch_size):
 
@@ -55,6 +64,7 @@ def get_data(dataset, batch_size):
 
         celeba_path = osp.join(root, 'celeba')
         if not osp.exists(celeba_path):
+            import subprocess
             print("Start to run download script")
             subprocess.call('./celeba.sh', shell=True)
             print("Dataset download finished!")
@@ -68,13 +78,24 @@ def get_data(dataset, batch_size):
         dataset = dsets.ImageFolder(root=casia_path, transform=transform)
 
     elif dataset == 'Faces' or dataset.lower() == 'faces':
+        # face_path = osp.join(root, 'feret')
         face_path = osp.join(root, 'faces')
         transform = transforms.Compose([
-            transforms.Grayscale(num_output_channels=1),
-            transforms.Resize(40),
-            transforms.CenterCrop(32),
+            transforms.Resize(64),
             transforms.ToTensor()])
         dataset = dsets.ImageFolder(root=face_path, transform=transform)
+    elif dataset == '2dshapes':
+        twi_dshapes_path = osp.join(root, 'dsprites-dataset', 'dsprites_ndarray_co1sh3sc6or40x32y32_64x64.npz')
+        if not osp.exists(osp.dirname(twi_dshapes_path)):
+            import subprocess
+            print('Now download dsprites-dataset')
+            subprocess.call(['./data/download_2dshape.sh'])
+            print('Finished')
+        data = np.load(twi_dshapes_path, encoding='bytes')
+        data = torch.from_numpy(data['imgs']).unsqueeze(1).float()
+
+        dataset = CustomTensorDataset(data_tensor=data)
+
     else:
         raise ValueError('Dataset name %s is wrong'%dataset)
 
@@ -86,7 +107,7 @@ def get_data(dataset, batch_size):
     return dataloader
 
 if __name__ == '__main__':
-    dataloader = get_data('celeba', 32)
+    dataloader = get_data('2dshapes', 32)
     import time
     start = time.time()
     for i, (x, _) in enumerate(dataloader):

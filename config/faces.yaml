@@ -1,1 +1,4 @@
 z_dim: 32
+distribution: bernoulli
+nb_channels: 3
+image_size: 64

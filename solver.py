@@ -131,11 +131,28 @@ class Solver(object):
             from model.celea_model import BetaVAE
         elif params.dataset == 'casia':
             from model.casia_model import BetaVAE
+        elif params.dataset == 'faces':
+            from model.faces_model import BetaVAE
+        elif params.dataset == '2dshapes':
+            from model.twoD_model import BetaVAE
+            self.C_max = Variable((torch.FloatTensor([self.params.C_max]))).to(device)
         else:
             raise NotImplementedError('Get model %s'%params.dataset)
 
         return BetaVAE(params.z_dim, params.nb_channels).to(device)
 
+    def get_loss(self, recon_loss, total_kld, **kwargs):
+
+        if self.params.dataset == '2dshapes':
+            input = self.params.C_max/self.params.C_stop_iter* kwargs.get('current_iter')
+            C = torch.clamp(torch.FloatTensor([input]), 0, self.C_max.data[0]).cuda()
+            if self.params.beta != 1:
+                beta_vae_loss = recon_loss + self.params.gamma*(total_kld-C).abs()
+            else:
+                beta_vae_loss = recon_loss + total_kld
+        else:
+            beta_vae_loss = recon_loss + self.beta*total_kld
+        return beta_vae_loss
 
     def train(self):
         self.net_mode(train=True)
@@ -151,7 +168,7 @@ class Solver(object):
                 recon_loss = reconstruction_loss(x, x_recon, self.params.distribution)
                 total_kld, dim_wise_kld, mean_kld = kl_divergence(mu, logvar)
 
-                beta_vae_loss = recon_loss + self.beta*total_kld
+                beta_vae_loss = self.get_loss(recon_loss, total_kld, current_iter= current_iter)
 
                 self.optim.zero_grad()
                 beta_vae_loss.backward()
@@ -280,7 +297,7 @@ class Solver(object):
 
         gifs = []
 
-        for key in list(Z.keys())[:10]:
+        for key in list(Z.keys()):
             z_ori = Z[key]
             samples = []
             for row in range(self.params.z_dim):
@@ -301,24 +318,24 @@ class Solver(object):
 
         if self.save_output:
             output_dir = self.params['info']
-            # gifs = torch.cat(gifs)
-            # gifs = gifs.view(len(Z), self.params.z_dim, len(interpolation), self.params.nb_channels, self.params.image_size, self.params.image_size).transpose(1, 2)
+            gifs = torch.cat(gifs)
+            gifs = gifs.view(len(Z), self.params.z_dim, len(interpolation), self.params.nb_channels, self.params.image_size, self.params.image_size).transpose(1, 2)
             for i, key in enumerate(Z.keys()):
                 for j, val in enumerate(interpolation):
-                    # save_image(tensor=gifs[i][j].cpu(),
-                    #            filename=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
-                    #            nrow=self.params.z_dim, pad_value=1)
+                    save_image(tensor=gifs[i][j].cpu(),
+                               fp=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
+                               nrow=self.params.z_dim, pad_value=1)
 
 
-                    index = slice(len(interpolation) * i + j, len(interpolation) * i + j + self.params.z_dim)
+                    # index = slice(len(interpolation) * i + j, len(interpolation) * i + j + self.params.z_dim)
                     # img = torch.cat(gifs[index][:100]).cpu()
                     # save_image(tensor=img,
                     #            fp=os.path.join(output_dir, '{}_{}.jpg'.format(key, j)),
                     #            nrow=self.params.z_dim, pad_value=1)
 
 
-                # grid2gif(os.path.join(output_dir, key+'*.jpg'),
-                #          os.path.join(output_dir, key+'.gif'), delay=10)
+                grid2gif(os.path.join(output_dir, key+'*.jpg'),
+                         os.path.join(output_dir, key+'.gif'), delay=10)
 
         self.net_mode(train=True)
 

@@ -1,6 +1,6 @@
 #! /bin/sh
 
-mkdir data
+#mkdir data
 cd data
 git clone https://github.com/deepmind/dsprites-dataset.git
 cd dsprites-dataset
