@@ -1,4 +1,4 @@
-## Train $\beta$-VAE on FACES dataset
+## Train β-VAE on FACES dataset
 
 ### 1. Configuration
 
@@ -19,26 +19,28 @@ Refer to the [config](../config/faces.yaml) file, and [model](../models/faces_mo
 ### 2. Training Curve
 
 #### 2.1 Feret
-
-##### 2.1.1 Feret VAE
-
-<img width="600" src="./res/faces/feret1_loss.png" style="float: left;"/>
-
-##### 2.1.2 Feret *β*-VAE (*β* = 20)
-
-<img width="600" src="./res/faces/feret20_loss.png" style="float: left;"/>
-
-
+<table align='center'>
+<tr align='center'>
+<th> VAE Loss</th>
+<th> β-VAE (β = 20)</th>
+</tr>
+<tr align='left'>
+<td><img src = './res/faces/feret1_loss.png'>
+<td><img src = './res/faces/feret20_loss.png' >
+</tr>
+</table>
 
 #### 2.2 Faces
-
-##### 2.2.1 Faces VAE
-
-<img width="600" src="./res/faces/faces1_loss.png" style="float: left;"/>
-
-##### 2.2.2 Feret *β*-VAE (*β* = 20)
-
-<img width="600" src="./res/faces/face10_loss.png" style="float: left;"/>
+<table align='center'>
+<tr align='center'>
+<th> VAE Loss</th>
+<th> β-VAE (β = 20)</th>
+</tr>
+<tr align='left'>
+<td><img src = './res/faces/faces1_loss.pngg'>
+<td><img src = './res/faces/face10_loss.png' >
+</tr>
+</table>
 
 
 

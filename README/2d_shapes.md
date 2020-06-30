@@ -1,4 +1,4 @@
-## Train $\beta$-VAE on 2D_shapes dataset
+## Train β-VAE on 2D_shapes dataset
 
 ### 1. Configuration
 
@@ -37,7 +37,7 @@ Refer to the [config](../config/twoD.yaml) file, and [model](../models/twoD_mode
 </tr>
 <tr>
 <td><img src = 'res/2dshapes/vae1_fix.png' height='400'>
-<td><img src = 'res/2dshapes/vae4_fix.png'height='400'>
+<td><img src = 'res/2dshapes/vae4_fix.png' height='400'>
 </tr>
 <tr align='center'>
 <th> VAE Random</th>

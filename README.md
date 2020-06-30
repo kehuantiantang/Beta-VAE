@@ -1,4 +1,4 @@
-# $\beta$-VAE PyTorch
+# β-VAE PyTorch
 
 PyTorch implementation of [beta-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework](https://openreview.net/forum?id=Sy2fzU9gl) with result of experiments on *Faces*, *CelebA* and *CASIA-Webface*, *synthetic 2D shares* datasets.
 
@@ -13,6 +13,8 @@ PyTorch implementation of [beta-VAE: Learning Basic Visual Concepts with a Const
 
   * `conda env create -f beta.yml`
 
+    
+  
   ```yaml
   name: beta
   channels:
@@ -85,12 +87,12 @@ PyTorch implementation of [beta-VAE: Learning Basic Visual Concepts with a Const
       - tqdm==4.46.1
       - urllib3==1.25.9
       - werkzeug==1.0.1
-  prefix: /home/{username}/anaconda3/envs/beta
+prefix: /home/{username}/anaconda3/envs/beta
   ```
-
+  
   
 
-Edit the *argparse* in **`main.py`** file to select training parameters and the dataset to use.
+Edit the *argparse* in [**`main.py`**](./main.py) file to select training parameters and the dataset to use.
 
 ```python
 parser = argparse.ArgumentParser(description='Beta-VAE')
@@ -177,7 +179,7 @@ class BetaVAE(VAEBase):
 
 * **2D shapes** -[`2d_shapes.md`](./README/2d_shapes.md)
 
-* **Info-GAN, VAE, $\beta$-VAE comparsion**
+* **Info-GAN, VAE, β-VAE comparsion**
 
   
 

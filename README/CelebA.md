@@ -1,4 +1,4 @@
-## Train $\beta$-VAE on CelebA dataset
+## Train β-VAE on CelebA dataset
 
 ### 1. Configuration
 
@@ -17,17 +17,19 @@ Refer to the [config](../config/celeba.yaml) file, and [model](../models/celeba_
 
 
 ### 2. Training Curve
-
-#### 2.1 VAE
-
-<img width="600" src="./res/celeba/vae_loss.png" style="float: left;"/>
-
-#### 2.2 β-VAE (β = 250)
-<img width="600" src="./res/celeba/vae20_loss.png" style="float: left;"/>
+<table align='center'>
+<tr align='center'>
+<th> VAE Loss</th>
+<th> β-VAE (β = 250)</th>
+</tr>
+<tr align='left'>
+<td><img src = './res/celeba/vae_loss.png'>
+<td><img src = "./res/celeba/vae20_loss.png" width="600">
+</tr>
+</table>
 
 
 ### 3. Experiment Result 
-
 
 
 <table align='center'>

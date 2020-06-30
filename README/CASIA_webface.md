@@ -1,4 +1,4 @@
-## Train $\beta$-VAE on CASIA_webface dataset
+## Train β-VAE on CASIA_webface dataset
 
 ### 1. Configuration
 
@@ -19,11 +19,16 @@ Refer to the [config](../config/casia.yaml) file, and [model](../models/casia_mo
 ### 2. Training Curve
 
 #### 2.1 VAE
-
-<img width="600" src="./res/celeba/vae_loss.png" style="float: left;"/>
-
-#### 2.2 β-VAE (β = 20)
-<img width="600" src="./res/celeba/vae20_loss.png" style="float: left;"/>
+<table align='center'>
+<tr align='center'>
+<th> VAE Loss</th>
+<th> β-VAE (β = 20)</th>
+</tr>
+<tr align='left'>
+<td><img src = './res/celeba/vae_loss.png' width="600">
+<td><img src = "./res/celeba/vae20_loss.png" width="600">
+</tr>
+</table>
 
 
 ### 3. Experiment Result 
