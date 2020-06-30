@@ -4,8 +4,8 @@ import torch.nn as nn
 from torch.autograd import Variable
 from torchvision import models
 
-from model.faces_model import BetaVAE
-from model.vae_base import VAEBase, View
+from models.faces_model import BetaVAE
+from models.vae_base import VAEBase, View
 import torch.nn.functional as F
 
 
@@ -98,6 +98,7 @@ class BetaVAE(VAEBase):
 
         super(BetaVAE, self).__init__(z_dim, nb_channel)
 
+        # CelebA architecture
         # self.encoder = nn.Sequential(
         #     nn.Conv2d(nb_channel, 32, 4, 2, 1),          # B,  32, 32, 32
         #     nn.ReLU(True),
@@ -113,7 +114,7 @@ class BetaVAE(VAEBase):
         #     nn.Linear(256, z_dim*2),             # B, z_dim*2
         # )
 
-
+        # AlexNet based
         self.encoder = nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=96, kernel_size=11, stride=4),  # (b x 96 x 55 x 55)
             nn.BatchNorm2d(96),

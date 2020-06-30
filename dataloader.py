@@ -9,8 +9,8 @@ import torchvision.datasets as dsets
 import numpy as np
 
 
-root = 'data/'
-# root = ''
+# root = 'data/'
+root = ''
 
 
 class CustomTensorDataset(Dataset):
@@ -106,7 +106,7 @@ def get_data(dataset, batch_size, image_size):
     return dataloader
 
 if __name__ == '__main__':
-    dataloader = get_data('2dshapes', 32)
+    dataloader = get_data('2dshapes', 32, 20)
     import time
     start = time.time()
     for i, (x, _) in enumerate(dataloader):

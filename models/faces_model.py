@@ -1,5 +1,5 @@
 # coding=utf-8
-from model.celea_model import BetaVAE
+from models.celeba_model import BetaVAE
 
 
 class BetaVAE(BetaVAE):

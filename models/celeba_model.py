@@ -2,7 +2,7 @@
 import torch
 import torch.nn as nn
 
-from model.vae_base import View, VAEBase
+from models.vae_base import View, VAEBase
 
 
 

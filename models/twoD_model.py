@@ -1,7 +1,7 @@
 # coding=utf-8
 from torch import nn
 
-from model.vae_base import View, kaiming_init, VAEBase
+from models.vae_base import View, kaiming_init, VAEBase
 
 
 class BetaVAE(VAEBase):
