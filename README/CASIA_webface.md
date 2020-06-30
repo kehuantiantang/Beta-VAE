@@ -17,57 +17,86 @@ Refer to the [config](../config/casia.yaml) file, and [model](../models/casia_mo
 *Beside, I test [AlexNet](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf) and [ResNet](https://arxiv.org/abs/1512.03385) backbone as encoder part, you can refer the source code to get more information.*
 
 ### 2. Training Curve
-
 #### 2.1 VAE
 <table align='center'>
 <tr align='center'>
 <th> VAE Loss</th>
-<th> β-VAE (β = 20)</th>
+<th> β-VAE (β = 10)</th>
 </tr>
 <tr align='left'>
-<td><img src = './res/celeba/vae_loss.png' width="600">
-<td><img src = "./res/celeba/vae20_loss.png" width="600">
+<td><img src = './res/casia/vae1_loss.png'></td>
+<td><img src = "./res/casia/vae10_loss.png"></td>
 </tr>
 </table>
 
 
 ### 3. Experiment Result 
 
-#### 3.1 Feret
-
 <table align='center'>
 <tr align='center'>
 <th> VAE fix noise</th>
-<th> β-VAE (β = 20) fix noise</th>
+<th> β-VAE (β = 10) fix noise</th>
 </tr>
 <tr>
-<td><img src = 'res/celeba/vae_fix.png' height='400'>
-<td><img src = 'res/celeba/vae20_fix.png'height='400'>
+<td><img src = 'res/casia/vae1_fix.png' height='400'></td>
+<td><img src = 'res/casia/vae10_fix.png'height='400'></td>
 </tr>
 <tr align='center'>
 <th> VAE Random</th>
-<th> β-VAE (β = 20) Random</th>
+<th> β-VAE (β = 10) Random</th>
 </tr>
 <tr>
-<td><img src = 'res/celeba/vae_random.png' height='400'>
-<td><img src = 'res/celeba/vae20_random.png' height='400'>
+<td><img src = 'res/casia/vae1_random.png' height='250'></td>
+<td><img src = 'res/casia/vae10_random.png' height='250'></td>
 </tr>
 </table>
 
-<table align='center'>
-<tr align='center'>
-  <th> Other architecture</th>
-</tr>
-<tr align='center'>
-<td><img src = 'res/casia/res_random.png'>
-</tr>
-</table>
+
+
+
 
 <table align='center'>
 <tr align='center'>
-  <th> InfoGAN </th>
+<th  colspan = '3'> Other architecture</th>
 </tr>
 <tr align='center'>
-<td><img src = 'res/celeba/c.png'>
+<th>ResNet</th>
+<th>AlexNet</th>
+<th>Transpose</th>
+</tr>
+<tr align='center'>
+<td><img src = 'res/casia/res_random.png'></td>
+<td><img src = 'res/casia/alex_random.png'></td>
+<td><img src = 'res/casia/transpose_random.png'></td>
 </tr>
 </table>
+
+
+<table align='center'>
+<tr align='center'>
+  <th colspan='2'> InfoGAN </th>
+</tr>
+<tr align='center'>
+  <td><img src = 'res/casia/infogan1.png'></td>
+  <td><img src = 'res/casia/infogan2.png'></td>
+</tr>
+</table>
+
+
+#### Annotation
+
+<table align='center'>
+<tr align='center'>
+  <th> VAE </th>
+</tr>
+<tr align='center'>
+  <td><img src = 'res/casia/vae1.gif'></td>
+</tr>
+<tr align='center'>
+  <th>β- VAE(β=10) </th>
+</tr>
+<tr align='center'>
+<td><img src = 'res/casia/vae10.gif'></td>
+</tr>
+</table>
+

@@ -24,7 +24,7 @@ Refer to the [config](../config/celeba.yaml) file, and [model](../models/celeba_
 </tr>
 <tr align='left'>
 <td><img src = './res/celeba/vae_loss.png'>
-<td><img src = "./res/celeba/vae20_loss.png" width="600">
+<td><img src = "./res/celeba/vae20_loss.png">
 </tr>
 </table>
 
@@ -39,7 +39,7 @@ Refer to the [config](../config/celeba.yaml) file, and [model](../models/celeba_
 </tr>
 <tr>
 <td><img src = 'res/celeba/vae_fix.png' height='400'>
-<td><img src = 'res/celeba/vae20_fix.png'height='400'>
+<td><img src = 'res/celeba/vae20_fix.png' height='400'>
 </tr>
 <tr align='center'>
 <th> VAE Random</th>
@@ -62,3 +62,23 @@ Refer to the [config](../config/celeba.yaml) file, and [model](../models/celeba_
 <td><img src = 'res/celeba/c.png'>
 </tr>
 </table>
+
+
+
+#### Training Annotation
+
+<table align='center'>
+<tr align='center'>
+  <th> VAE </th>
+</tr>
+<tr align='center'>
+  <td><img src = 'res/celeba/vae1.gif'></td>
+</tr>
+<tr align='center'>
+  <th>β- VAE(β=250) </th>
+</tr>
+<tr align='center'>
+<td><img src = 'res/celeba/vae250.gif'></td>
+</tr>
+</table>
+

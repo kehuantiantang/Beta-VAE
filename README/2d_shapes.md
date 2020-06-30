@@ -83,3 +83,21 @@ I cannot implement the architecture based on the Table1, so I design my own arch
 | VAE     |                 |
 | *β*-VAE |                 |
 
+
+
+#### Training Annotation
+
+<table align='center'>
+<tr align='center'>
+  <th> VAE </th>
+</tr>
+<tr align='center'>
+  <td><img src = 'res/2dshapes/vae1.gif'></td>
+</tr>
+<tr align='center'>
+  <th>β- VAE(β=4) </th>
+</tr>
+<tr align='center'>
+<td><img src = 'res/2dshapes/vae4.gif'></td>
+</tr>
+</table>

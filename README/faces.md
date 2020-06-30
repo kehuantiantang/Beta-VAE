@@ -37,7 +37,7 @@ Refer to the [config](../config/faces.yaml) file, and [model](../models/faces_mo
 <th> β-VAE (β = 20)</th>
 </tr>
 <tr align='left'>
-<td><img src = './res/faces/faces1_loss.pngg'>
+<td><img src = './res/faces/faces1_loss.png'>
 <td><img src = './res/faces/face10_loss.png' >
 </tr>
 </table>
@@ -97,3 +97,43 @@ Refer to the [config](../config/faces.yaml) file, and [model](../models/faces_mo
 <td ><img src = 'res/faces/faces_c.png'>
 </tr>
 </table>
+
+
+
+
+
+#### Training Annotation
+##### Feret
+
+<table align='center'>
+<tr align='center'>
+  <th> VAE </th>
+</tr>
+<tr align='center'>
+  <td><img src = 'res/faces/feret_vae1.gif'></td>
+</tr>
+<tr align='center'>
+  <th>β- VAE(β=20) </th>
+</tr>
+<tr align='center'>
+<td><img src = 'res/faces/feret_vae20.gif'></td>
+</tr>
+</table>
+
+##### Faces
+
+<table align='center'>
+<tr align='center'>
+  <th> VAE </th>
+</tr>
+<tr align='center'>
+  <td><img src = 'res/faces/faces_vae1.gif'></td>
+</tr>
+<tr align='center'>
+  <th>β- VAE(β=20) </th>
+</tr>
+<tr align='center'>
+<td><img src = 'res/faces/faces_vae20.gif'></td>
+</tr>
+</table>
+
