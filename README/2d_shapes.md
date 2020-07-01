@@ -56,7 +56,7 @@ Refer to the [config](../config/twoD.yaml) file, and [model](../models/twoD_mode
   <th> InfoGAN </th>
 </tr>
 <tr align='center'>
-<td><img src = 'res/celeba/c.png'>
+<td><img src = 'res/2dshapes/infogan.png'>
 </tr>
 </table>
 
@@ -64,7 +64,7 @@ Refer to the [config](../config/twoD.yaml) file, and [model](../models/twoD_mode
 
 #### Disentanglement Metric
 
-I cannot implement the architecture based on the Table1, so I design my own architecture and shows below (==ddd==). Due to time, I just inference the network one time, the InfoGAN architecture is not optimized, so the performance has big distance than Figure 6. I will try to improve it in the future.
+I cannot implement the architecture based on the Table1, so I design my own architecture and shows below. Due to time, I just inference the network one time, the InfoGAN architecture is not optimized, so the performance has big distance than Figure 6. I will try to improve it in the future.
 
 | **Discriminator $D$/ recognition network $Q$**  | Generator $Q$                                            |
 | ----------------------------------------------- | -------------------------------------------------------- |
@@ -76,12 +76,6 @@ I cannot implement the architecture based on the Table1, so I design my own arch
 | 4x4 conv. 256 **IRELU**, batchnorm, padding 1   | 4x4 upconv. 64. **RELU**. batchnorm. stride 2, padding 1 |
 | $D$, 2x2 conv. 1, sigmoid, output               | 4x4 upconv. 32. **RELU**. batchnorm. stride 2, padding 1 |
 | $Q$, 2x2 conv. 128 **IRELU**, batchnorm, output | 4x4 upconv. 1, , padding 1 **tanh**                      |
-
-| Model   | Disentanglement |
-| ------- | --------------- |
-| InfoGAN |                 |
-| VAE     |                 |
-| *β*-VAE |                 |
 
 
 
